@@ -43,7 +43,7 @@ app.post("/api/notes", (request, response) => {
     }
 
     notes =  [...notes, newNote]
-    return response.json(newNote)
+    response.json(newNote)
 })
 
 app.get("/", (request, response) => {
