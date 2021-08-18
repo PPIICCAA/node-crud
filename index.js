@@ -7,11 +7,11 @@ app.use(cors())
 
 let notes = [
     {
-      "content": "nombre222ddd",
+      "title": "nombre222ddd",
       "id": 3
     },
     {
-      "content": "hola",
+      "title": "hola",
       "id": 14
     },
 ]
@@ -24,7 +24,7 @@ let notes = [
 app.post("/api/notes", (request, response) => {
     const note = request.body
 
-    if(!note || !note.content) {
+    if(!note || !note.title) {
         response.status(400).json({
             error: "note content is missing"
 
@@ -37,7 +37,7 @@ app.post("/api/notes", (request, response) => {
 
     const newNote = {
         id: maxId + 1,
-        content: note.content,
+        title: note.title,
         important: typeof note.important != "undefined" ? note.important : false,
         date: new Date().toISOString()
     }
