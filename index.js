@@ -25,13 +25,11 @@ app.post("/api/notes", (request, response) => {
     const note = request.body
 
     if(!note || !note.title) {
-        response.status(400).json({
-            error: "note content is missing"
-
+        return response.status(400).json({
+            error: "note title is missing"
         })
-    } else {
-        response.status(404).end()
     }
+
     const ids = notes.map(note => note.id)
     const maxId = Math.max(...ids)
 
@@ -43,9 +41,18 @@ app.post("/api/notes", (request, response) => {
     }
 
     notes =  [...notes, newNote]
-    response.json(newNote)
+    response.status(201).json(newNote)
 })
-
+app.patch("/api/notes/:id", (request, response) => {
+    notes.map(note => {
+        if (note.id === parseInt(request.params.id)) {
+            note.title= request.body.title,
+            note.important= request.body.important,
+            note.date= request.body.date
+        }
+    })
+    response.status(201).json(notes)
+})
 app.get("/", (request, response) => {
     response.send("<h1>hello world</h1>")
 })
